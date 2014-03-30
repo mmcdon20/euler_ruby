@@ -146,6 +146,24 @@ class Euler
     (2 ** 1000).to_s.chars.map(&:to_i).reduce(:+)
   end
 
+  def self.euler018
+    file = File.open('../resources/18.txt')
+    grid = file.lines.map{|line| line.split(' ').map(&:to_i)}
+    file.close
+
+    (0..grid.last.size).reverse_each do |col|
+      (0..grid.size).reverse_each do |row|
+        begin
+          grid[row][col] += [grid[row+1][col], grid[row+1][col+1]].max
+        rescue
+          next
+        end
+      end
+    end
+
+    grid[0][0]
+  end
+
   def self.euler019
     require 'Date'
     range = Date.new(1901,1,1)..Date.new(2000,12,31)
@@ -276,3 +294,5 @@ class Euler
     primes
   end
 end
+
+puts Euler.euler018
