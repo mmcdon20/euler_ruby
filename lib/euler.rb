@@ -146,6 +146,46 @@ class Euler
     (2 ** 1000).to_s.chars.map(&:to_i).reduce(:+)
   end
 
+  def self.euler017
+    ones =      { 1 => 'One',           2 => 'Two',           3 => 'Three',
+                  4 => 'Four',          5 => 'Five',          6 => 'Six',
+                  7 => 'Seven',         8 => 'Eight',         9 => 'Nine' }
+    teens =     { 1 => 'Eleven',        2 => 'Twelve',        3 => 'Thirteen',
+                  4 => 'Fourteen',      5 => 'Fifteen',       6 => 'Sixteen',
+                  7 => 'Seventeen',     8 => 'Eighteen',      9 => 'Nineteen' }
+    tens =      { 1 => 'Ten',           2 => 'Twenty',        3 => 'Thirty',
+                  4 => 'Forty',         5 => 'Fifty',         6 => 'Sixty',
+                  7 => 'Seventy',       8 => 'Eighty',        9 => 'Ninety' }
+    hundreds =  { 1 => 'OneHundred',    2 => 'TwoHundred',    3 => 'ThreeHundred',
+                  4 => 'FourHundred',   5 => 'FiveHundred',   6 => 'SixHundred',
+                  7 => 'SevenHundred',  8 => 'EightHundred',  9 => 'NineHundred' }
+    thousands = { 1 => 'OneThousand',   2 => 'TwoThousand',   3 => 'ThreeThousand',
+                  4 => 'FourThousand',  5 => 'FiveThousand',  6 => 'SixThousand',
+                  7 => 'SevenThousand', 8 => 'EightThousand', 9 => 'NineThousand' }
+
+    ones.each      {|k,v| ones[k]      = v.length}
+    teens.each     {|k,v| teens[k]     = v.length}
+    tens.each      {|k,v| tens[k]      = v.length}
+    hundreds.each  {|k,v| hundreds[k]  = v.length}
+    thousands.each {|k,v| thousands[k] = v.length}
+    a = 'and'.length
+
+    size = lambda do |n|
+      case
+      when n < 10                      then ones[n]
+      when n < 100 && n > 10 && n < 20 then teens[n%10]
+      when n < 100 && n % 10 == 0      then tens[n/10]
+      when n < 100                     then tens[n/10] + size.call(n%10)
+      when n < 1000 && n % 100 == 0    then hundreds[n/100]
+      when n < 1000                    then hundreds[n/100] + a + size.call(n%100)
+      when n < 10000 && n % 1000 == 0  then thousands[n/1000]
+      else
+      end
+    end
+
+    (1..1000).map{|number| size.call(number)}.reduce(:+)
+  end
+
   def self.euler018
     file = File.open('../resources/18.txt')
     grid = file.lines.map{|line| line.split(' ').map(&:to_i)}
