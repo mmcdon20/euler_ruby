@@ -22,6 +22,7 @@ class EulerTest < Test::Unit::TestCase
   def test018; test_euler(:euler018,           1_074); end
   def test019; test_euler(:euler019,             171); end
   def test020; test_euler(:euler020,             648); end
+  def test022; test_euler(:euler022,     871_198_282); end
   def test024; test_euler(:euler024,   2_783_915_460); end
   def test025; test_euler(:euler025,           4_782); end
 
