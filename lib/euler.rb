@@ -174,6 +174,16 @@ class Euler
     factorial(100).to_s.chars.map(&:to_i).reduce(:+)
   end
 
+  def self.euler022
+    file = File.open('../resources/22.txt')
+    items = file.lines.reduce(:+).gsub('"','').split(',')
+    file.close
+    items = items.sort
+    items = items.map{|name| word_value(name)}
+    items = items.each_with_index.map{|v,i| v * (i+1)}
+    items.reduce(:+)
+  end
+
   def self.euler024
     ('0'..'9').to_a.permutation(10).to_a[1_000_000-1].reduce(:+)
   end
@@ -187,6 +197,10 @@ end
 # helper methods and utilities
 class Euler
   private
+
+  def self.word_value(word)
+    word.chars.map{|char| char.ord - 64}.reduce(:+)
+  end
 
   def self.factorial (n)
     (1..n).reduce(:*)
@@ -294,5 +308,3 @@ class Euler
     primes
   end
 end
-
-puts Euler.euler018
