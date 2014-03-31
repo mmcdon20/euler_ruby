@@ -214,6 +214,10 @@ class Euler
     factorial(100).to_s.chars.map(&:to_i).reduce(:+)
   end
 
+  def self.euler021
+    (1...10_000).select{|n| amicable(n)}.reduce(:+)
+  end
+
   def self.euler022
     file = File.open('../resources/22.txt')
     items = file.lines.reduce(:+).gsub('"','').split(',')
@@ -238,7 +242,15 @@ end
 class Euler
   private
 
-  def self.word_value(word)
+  def self.divisor_sum (n)
+    (1..n/2).select{|i| n % i == 0}.reduce(:+) rescue 0
+  end
+
+  def self.amicable (a, b = divisor_sum(a))
+    divisor_sum(b) == a && a != b
+  end
+
+  def self.word_value (word)
     word.chars.map{|char| char.ord - 64}.reduce(:+)
   end
 
