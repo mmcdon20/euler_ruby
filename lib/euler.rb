@@ -243,7 +243,13 @@ class Euler
   private
 
   def self.divisor_sum (n)
-    (1..n/2).select{|i| n % i == 0}.reduce(:+) rescue 0
+    (2..Math.sqrt(n)).reduce(1) do |sum, element|
+      if n % element == 0
+        sum + element + (n/element == element ? 0 : n/element)
+      else
+        sum
+      end
+    end
   end
 
   def self.amicable (a, b = divisor_sum(a))
