@@ -228,6 +228,21 @@ class Euler
     items.reduce(:+)
   end
 
+  def self.euler023
+    require 'set'
+    range = 1..28_123
+    abundant_nums = range.select{|n| abundant? n}
+    abundant_sums = []
+
+    (0...abundant_nums.length).each do |a|
+      (a...abundant_nums.length).each do |b|
+        abundant_sums[abundant_nums[a]+abundant_nums[b]] = true
+      end
+    end
+
+    range.reduce{|sum,n| sum + (abundant_sums[n] ? 0 : n)}
+  end
+
   def self.euler024
     ('0'..'9').to_a.permutation(10).to_a[1_000_000-1].reduce(:+)
   end
@@ -250,6 +265,10 @@ class Euler
         sum
       end
     end
+  end
+
+  def self.abundant? (n)
+    divisor_sum(n) > n
   end
 
   def self.amicable (a, b = divisor_sum(a))
