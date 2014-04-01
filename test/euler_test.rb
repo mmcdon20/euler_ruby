@@ -1,6 +1,6 @@
 require 'test/unit'
 require 'timeout'
-require '../lib/euler'
+require '../app/euler'
 
 class EulerTest < Test::Unit::TestCase
   def test001; test_euler(:euler001,         233_168); end
