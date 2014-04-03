@@ -215,7 +215,7 @@ class Euler
   end
 
   def self.euler021
-    (1...10_000).select{|n| amicable(n)}.reduce(:+)
+    (1...10_000).select{|n| amicable?(n)}.reduce(:+)
   end
 
   def self.euler022
@@ -271,7 +271,7 @@ class Euler
     divisor_sum(n) > n
   end
 
-  def self.amicable (a, b = divisor_sum(a))
+  def self.amicable? (a, b = divisor_sum(a))
     divisor_sum(b) == a && a != b
   end
 
